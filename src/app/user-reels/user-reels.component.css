@@ -1,0 +1,42 @@
+.container{
+    width: 100%;
+}
+
+.noPost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.noPost__text{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.posts{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+}
+
+.posts__post{
+    position: relative;
+    cursor: pointer;
+}
+
+.post__imagen{
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+}
+
+.post__icono{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: white;
+}

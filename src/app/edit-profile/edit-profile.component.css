@@ -1,0 +1,189 @@
+.container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--background);
+    animation: slide .3s ease-out;
+    z-index: 999;
+}
+
+.navbar{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--background);
+    z-index: 9999;
+}
+
+.flechaVolver{
+    cursor: pointer; 
+    position: absolute; 
+    left: 10px; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+.navbar__updateBtn{
+    cursor: pointer; 
+    position: absolute; 
+    right: 10px; 
+    top: 50%; 
+    transform: translateY(-50%);
+    color: var(--azul);
+}
+
+.editarFoto{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.editarFoto__foto{
+    width: 90px;
+    aspect-ratio: 1/1;
+}
+
+.fotoLoader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    color: white;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, 0.468);
+}
+
+.pantallaNegra{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.39);
+    z-index: 9999;
+}
+
+.modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    max-width: 300px;
+    border-radius: 10px;
+    background-color: var(--background);
+}
+
+.modal__btns{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.campos{
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    padding: 10px;
+    gap: 10px;
+    cursor: pointer;
+    transition: ease .2s;
+}
+
+.campos:hover{
+    background-color: rgb(234, 234, 234);
+}
+
+.campos__campo{
+    width: 120px;
+    font-weight: 700;
+}
+
+.campos__valor{
+    width: 100%;
+}
+
+.editarCampos{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+    background-color: var(--background);
+    z-index: 999;
+    overflow-y: auto;
+    animation: slide .3s ease-out;
+}
+
+.editarCampos__inputTexto{
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
+    outline: 1px solid var(--background-inverted);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.editarCampos__inputTexto:focus{
+    outline: 2px solid var(--background-inverted);
+}
+
+.editarCampos__desc{
+    all: unset;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: hidden;
+}
+
+.descripcionChar{
+    position: absolute;
+    bottom: -25px;
+    right: 10px;
+    color: var(--border);
+}
+
+.descripcionChar--mal{
+    position: absolute;
+    bottom: -25px;
+    right: 10px;
+    color: var(--rojo);
+}
+
+.mensajeApartado{
+    margin-top: 10px;
+    padding-inline: 10px;
+    color: #454545;
+}
+
+.mensajeErrorCampos{
+    margin-top: 15px;
+    padding-inline: 10px;
+    color: var(--rojo);
+}
+
+@keyframes slide{
+    from{
+        left: 100%;
+    }
+
+    to{
+        left: 0;
+    }
+}

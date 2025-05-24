@@ -1,0 +1,76 @@
+<div class="container">
+    <nav>
+        <app-routing-btn class="flechaVolver"></app-routing-btn>
+        <h3>{{ tipo == "post" ? 'Nueva publicación' : 'Nuevo reel' }}</h3>
+    </nav>
+    <section>
+        <div class="seleccionarArchivo">
+            <div class="archivoElegido" style="position: relative;">
+                <img *ngIf="tipo == 'post' && fotoMostrar" [src]="fotoMostrar" class="archivoElegido__foto">
+                <video *ngIf="tipo == 'reel' && videoMostrar" [src]="videoMostrar" class="archivoElegido__video"></video>
+                <button (click)="mostrarVistaPrevia = true" *ngIf="tipo == 'reel' && videoMostrar" class="archivoElegido__vistaprevia">Vista previa</button>
+            </div>
+            <div *ngIf="tipo == 'post'">
+                <label for="post" class="seleccionarArchivo__boton">Seleccionar foto</label>
+                <input type="file" accept="image/*" hidden id="post" (change)="elegirFoto($event)">    
+            </div>
+            <div *ngIf="tipo == 'reel'">
+                <label for="post" class="seleccionarArchivo__boton">Seleccionar video</label>
+                <input type="file" accept="video/*" hidden id="post" (change)="elegirVideo($event)">    
+            </div>
+        </div>
+
+        <div style="position: relative; width: 100%; padding: 10px; border-top: 1px solid var(--border);">
+            <textarea style="all: unset; width: 100%; height: 100px;" placeholder="Añade un pie de foto o video..." [(ngModel)]="descripcion"></textarea>
+            <span [ngClass]="{
+                'desc__length': descripcion.length <= 100,
+                'desc__length--mal': descripcion.length > 100
+            }">{{ 100 - descripcion.length }}</span>
+        </div>
+    </section>
+    <footer>
+        <button class="uploadBtn" (click)="compartir()">Compartir</button>
+    </footer>
+</div>
+
+<div class="reel-container" *ngIf="mostrarVistaPrevia">
+    <div class="reel-container__all">
+        <div class="reel-container__nav">
+            <svg style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;" (click)="mostrarVistaPrevia = false" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="currentColor" d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/></svg>
+            <p>Vista previa</p>
+        </div>
+        <video
+          class="reel-video"
+          [src]="videoMostrar"
+          autoplay
+          loop
+          playsinline
+        ></video>
+      
+        <div class="overlay">
+          <div class="overlay__user">
+            <div style="display: flex; gap: 7px; align-items: center;">
+                <img class="user__foto" [src]="perfil.foto ? perfil.foto : './../../assets/img/noPic.webp'">
+                <p class="user__name">{{ perfil.usuario }}</p>
+            </div>
+            <p style="color: rgb(219, 219, 219);">Descripción</p>
+          </div>
+          <div class="overlay__options">
+            <div class="options__option">
+                <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" width="28" height="28" image-rendering="optimizeQuality" clip-rule="evenodd" viewBox="0 0 512 456.549"><path fill="currentColor" d="M463.044 117.283c-10.125-26.729-28.412-47.537-50.269-60.578-13.478-8.048-28.343-13.125-43.461-14.808-14.879-1.655-30.018.007-44.284 5.407-37.461 14.189-50.601 41.912-66.522 74.028-3.422 6.887-1.964 6.964-5.893.078-17.576-30.87-33.786-63.684-70.127-75.725-12.879-4.26-26.554-5.408-40.088-3.845-13.83 1.606-27.546 6.028-40.207 12.83-25.068 13.485-45.883 36.215-55.382 64.916-31.525 95.237 83.379 188.376 170.42 258.918 12.97 10.506 25.363 20.547 36.834 30.251 15.449-13.288 32.356-26.695 49.995-40.687 87.815-69.634 195.291-154.872 158.984-250.785zm-29.173-95.842c29.483 17.589 54.094 45.531 67.663 81.351 46.924 123.973-73.479 219.471-171.871 297.485-22.829 18.11-44.418 35.228-61.078 50.41-7.626 7.478-19.85 7.894-27.969.711-13.9-12.323-31.033-26.201-49.312-41.01C94.743 332.128-32.73 228.808 7.688 106.7c12.956-39.151 41.144-70.042 75.028-88.266C99.939 9.175 118.705 3.147 137.724.943c19.337-2.232 38.983-.556 57.65 5.619 22.047 7.302 42.601 20.751 59.55 41.271 16.316-18.527 35.37-31.35 55.614-39.018 20.513-7.759 42.13-10.168 63.283-7.816 20.913 2.324 41.453 9.337 60.05 20.442z"/></svg>
+                <span style="font-size: 12px; color: rgb(219, 219, 219);">1</span>
+            </div>
+            <div class="options__option">
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.97 122.88" width="28" height="28"><path fill="currentColor" d="M61.44,0a61.46,61.46,0,0,1,54.91,89l6.44,25.74a5.83,5.83,0,0,1-7.25,7L91.62,115A61.43,61.43,0,1,1,61.44,0ZM96.63,26.25a49.78,49.78,0,1,0-9,77.52A5.83,5.83,0,0,1,92.4,103L109,107.77l-4.5-18a5.86,5.86,0,0,1,.51-4.34,49.06,49.06,0,0,0,4.62-11.58,50,50,0,0,0-13-47.62Z"/></svg>
+                <span style="font-size: 12px; color: rgb(219, 219, 219);">1</span>
+            </div>
+            <div class="options__option">
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.3" width="28" height="28"><path fill="currentColor" d="M96.14,12.47l-76.71-1.1,28.3,27.85L96.14,12.47ZM53.27,49l9.88,39.17L102.1,22,53.27,49ZM117,1.6a5.59,5.59,0,0,1,4.9,8.75L66.06,105.21a5.6,5.6,0,0,1-10.44-1.15L41.74,49,1.67,9.57A5.59,5.59,0,0,1,5.65,0L117,1.6Z"/></svg>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+  
+<app-loading-screen [texto]="'Subiendo...'" *ngIf="mostrarLoader"></app-loading-screen>
+<app-msgmodal [duracion]="2000" [texto]="textoModal" *ngIf="mostrarModal" (cerrarModal)="mostrarModal = false"></app-msgmodal>

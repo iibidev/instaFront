@@ -1,0 +1,70 @@
+.container{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.login{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login__form{
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    width: 85%;
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.form__field{
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background-color: #eaeaea;
+    font-size: 15px;
+}
+
+.form__field--passwd{
+    padding-right: 70px;
+}
+
+.form__submit{
+    all: unset;
+    border-radius: 10px;
+    padding-block: 5px;
+    text-align: center;
+    margin-top: 5px;
+    background-color: var(--azul);
+    color: white;
+    cursor: pointer;
+    transition: ease .2s;
+}
+
+.form__submit:hover{
+    background-color: var(--azul-hover);
+}
+
+.link{
+    all: unset;
+    cursor: pointer;
+    color: var(--azul);
+}
+
+
+@media (width < 900px){
+    .picContainer{
+        display: none;
+    }
+
+    .login{
+        width: 100%;
+    }
+}

@@ -1,0 +1,164 @@
+nav{
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 270px;
+    height: 100dvh;
+    background-color: var(--background);
+    z-index: 99;
+    border-right: 1px solid var(--border);
+}
+
+.logo{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 100px;
+    transform: translateX(-50%);
+}
+
+.rutas{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 60px;
+    gap: 20px;
+}
+
+.ruta{
+    all: unset;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    padding: 10px 20px;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.ruta__icono{
+    width: 24px;
+}
+
+.ruta--perfil{
+    margin-top: 20px;
+}
+
+.ruta__fotoPerfil{
+    width: 50px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.ruta__texto{
+    font-size: 24px;
+}
+
+.pantallaNegra{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.418);
+    z-index: 999;
+}
+
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 400px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--background);
+    z-index: 999;
+}
+
+.modal__botones{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.botones__btn{
+    all: unset;
+    cursor: pointer;
+    padding-block: 8px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--azul);
+}
+
+.botones__btn--rojo{
+    color: var(--rojo);
+}
+
+@media (width < 1000px){
+    nav{
+        width: 90px;
+        height: 100dvh;
+    }
+
+    .logo{
+        display: none;
+    }
+
+    .rutas{
+        margin: 0;
+        padding-top: 40px;
+    }
+
+    .ruta{
+        justify-content: center;
+        padding-inline: 0;
+    }
+
+    .ruta__texto{
+        display: none;
+    }
+}
+
+@media (width < 600px){
+    nav{
+        position: fixed;
+        width: 100%;
+        height: 80px;
+        top: unset;
+        bottom: 0;
+        border: none;
+        border-top: 1px solid var(--border);
+    }
+
+    .rutas{
+        padding: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .ruta{
+        padding: 0;
+    }
+
+    .ruta--perfil{
+        margin: 0;
+    }
+
+    .ruta--movil{
+        display: none;
+    }
+}
+
+@media (width < 450px){
+    .ruta__fotoPerfil{
+        width: 32px;
+    }
+}

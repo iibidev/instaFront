@@ -1,0 +1,223 @@
+.container{
+    position: relative;
+    width: 550px;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+}
+
+.nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.nav__user{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.options__btn{
+    all: unset;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.userInfo{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+    padding-inline: 10px;
+}
+
+.userInfo__pic{
+    width: 100px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.userInfo__createStorieBtn{
+    all: unset;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 50%;
+    outline: 4px solid var(--background);
+    background-color: var(--background-inverted);
+    color: var(--background);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.userInfo__info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info__follows{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.follows__btn{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.descripcion{
+    width: 100%;
+    margin-top: 15px;
+    padding-inline: 10px;
+}
+
+.userOptions{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-inline: 10px;
+}
+
+.userOptions__btn{
+    all: unset;
+    cursor: pointer;
+    border: 1px solid var(--background-inverted);
+    border-radius: 5px;
+    padding-block: 4px;
+    flex-grow: 1;
+    text-align: center;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.userOptions__btn--large{
+    flex-grow: 7;
+}
+
+.userOptions__btn--color{
+    border: none;
+    color: white;
+    background-color: var(--azul);
+    transition: ease .2s;
+}
+
+.userOptions__btn--color:hover{
+    background-color: var(--azul-hover);
+}
+
+.links{
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+}
+
+.links__link{
+    cursor: pointer;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.avisoLogOut{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.403);
+    z-index: 999;
+    animation: appear .4s ease-out;
+}
+
+.avisoLogOut__panel{
+    width: 95%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--background);
+    overflow: hidden;
+}
+
+.panel__botones{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.panel__boton{
+    all: unset;
+    cursor: pointer;
+    width: 100%;
+    border-top: 1px solid var(--border);
+    padding-block: 7px;
+    text-align: center;
+}
+
+@media(width < 800px){
+    .container{
+        width: 500px;
+    }
+}
+
+@media(width < 600px){
+    .container{
+        width: 100vw;
+    }
+}
+
+@media(width < 550px){
+    .userInfo__pic{
+        width: 80px;
+    }
+
+    .follows__btn{
+        font-size: 15px;
+    }
+}
+
+@media(width < 400px){
+    .follows__btn{
+        font-size: 14px;
+    }
+}
+
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}

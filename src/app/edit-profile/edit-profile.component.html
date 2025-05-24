@@ -1,0 +1,67 @@
+<div class="container">
+    <nav class="navbar">
+        <svg *ngIf="!mostrarEditarCampos" xmlns="http://www.w3.org/2000/svg" class="flechaVolver" width="24" height="24" (click)="cerrar()"><path d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/></svg>
+        <svg *ngIf="mostrarEditarCampos" xmlns="http://www.w3.org/2000/svg" class="flechaVolver" width="24" height="24" (click)="cerrarEditarCampos()"><path d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/></svg>
+        <p style="font-weight: bold;">{{ nombreApartado }}</p>
+        <span *ngIf="mostrarEditarCampos" class="navbar__updateBtn" (click)="actualizar()">
+            <p>Listo</p>
+        </span>
+    </nav>
+
+    <div class="editarFoto">
+        <div (click)="modalEditarFoto = true" style="display: flex; flex-direction: column; gap: 8px; align-items: center; cursor: pointer;">
+            <div style="border-radius: 50%; overflow: hidden; position: relative;">
+                <img class="editarFoto__foto" [src]="imagenElegida ? imagenElegida : './../../assets/img/noPic.webp'">
+                <span *ngIf="cargandoImagen" class="fotoLoader">Cargando...</span>
+            </div>
+            <span style="color: var(--azul);">Editar foto</span>
+        </div>
+        <input type="file" id="fotoPerfil" accept="image/*" hidden (change)="elegirFoto($event)">
+    </div>
+    <div class="pantallaNegra" *ngIf="modalEditarFoto">
+        <div class="modal">
+            <p style="font-size: 17px; font-weight: bold; margin-top: 10px;">Elige una opción</p>
+            <p style="font-size: 15px; margin-top: 15px; text-align: center; padding-inline: 5px;">Puedes elegir una foto de tu galería o borrar la foto actual.</p>
+            <div class="modal__btns">
+                <label for="fotoPerfil" style="text-align: center; padding-block: 10px; color: var(--azul); border-top: 1px solid var(--border); cursor: pointer;">Elegir foto</label>
+                <button *ngIf="perfil.foto" (click)="borrarFoto()" style="all: unset; padding-block: 10px; text-align: center; color: var(--rojo); border-top: 1px solid var(--border); cursor: pointer;">Borrar</button>
+                <button (click)="modalEditarFoto = false" style="all: unset; padding-block: 10px; text-align: center; color: var(--text); border-top: 1px solid var(--border); cursor: pointer;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="campos" (click)="editarCampo(1)">
+        <p class="campos__campo">Nombre</p>
+        <p class="campos__valor">{{ perfil.nombre }}</p>
+    </div>
+    <div class="campos" (click)="editarCampo(2)">
+        <p class="campos__campo">Nombre de usuario</p>
+        <p class="campos__valor">{{ perfil.usuario }}</p>
+    </div>
+    <div class="campos" (click)="editarCampo(3)">
+        <p class="campos__campo">Descripción</p>
+        <p class="campos__valor" [innerHTML]="perfil.descripcion"></p>
+    </div>
+
+    <app-msgmodal *ngIf="mostrarModal" [duracion]="2000" [texto]="textoModal" (cerrarModal)="mostrarModal = false"></app-msgmodal>
+    <div class="editarCampos" *ngIf="mostrarEditarCampos">
+        <div *ngIf="campoEditar == 1" style="padding-inline: 10px;">
+            <input type="text" [(ngModel)]="nombreNuevo" class="editarCampos__inputTexto">
+        </div>
+        <div *ngIf="campoEditar == 2" style="padding-inline: 10px;">
+            <input type="text" [(ngModel)]="usuarioNuevo" class="editarCampos__inputTexto">
+        </div>
+        <div *ngIf="campoEditar == 3" style="border-block: 1px solid var(--border); padding: 10px; position: relative;">
+            <textarea class="editarCampos__desc" #textarea (input)="autoResize(textarea)" [(ngModel)]="descripcionNueva"></textarea>
+            {{ autoResize(textarea) }}
+            <span [ngClass]="{
+                'descripcionChar': descripcionNueva.length <= 150,
+                'descripcionChar--mal': descripcionNueva.length > 150
+            }">{{ 150 - descripcionNueva.length }}</span>
+        </div>
+        <p class="mensajeErrorCampos" *ngIf="msgErrorCampos">{{ msgErrorCampos }}</p>
+        <p class="mensajeApartado" *ngIf="campoEditar == 1">Usa el nombre por el que te conoce todo el mundo, ya sea tu nombre completo, apodo o nombre comercial, para que las personas descubran tu cuenta.</p>
+        <p class="mensajeApartado" *ngIf="campoEditar == 1">Cualquiera dentro y fuera de Instagram puede ver tu nombre.</p>
+        <p class="mensajeApartado" *ngIf="campoEditar == 2">Cualquier persona dentro y fuera de Instagram puede ver tu nombre de usuario.</p>
+    </div>
+</div>
