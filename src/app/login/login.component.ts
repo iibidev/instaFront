@@ -4,6 +4,7 @@ import { RutasService } from '../service/rutas.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
+import { SocketService } from '../service/socket.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent {
   errorMsg: String = "";
 
   constructor(private fb: FormBuilder, private mostrarHeader: RutasService,
-    private userService: UserService, private router: Router
+    private userService: UserService, private router: Router, 
+    private socketService: SocketService
   ) {
     this.registerForm = this.fb.group({
       nombre: ['', [
@@ -68,6 +70,13 @@ export class LoginComponent {
           if(data.ok){
             localStorage.setItem('token', data.token);
             this.userService.cargarPerfil({ usuario: "me" });
+            this.userService.getPerfil().subscribe(data =>{
+              if(data){
+                if(data.ok){
+                  this.socketService.unirseSala(data._id);
+                }
+              }
+            });
             this.router.navigate(["/perfil"]);
           }else{
             this.showLoader = false;
@@ -96,6 +105,13 @@ export class LoginComponent {
           if(data.ok){
             localStorage.setItem('token', data.token);
             this.userService.cargarPerfil({ usuario: "me" });
+            this.userService.getPerfil().subscribe(data =>{
+              if(data){
+                if(data.ok){
+                  this.socketService.unirseSala(data._id);
+                }
+              }
+            });
             this.router.navigate(["/"]);
           }else{
             this.showLoader = false;

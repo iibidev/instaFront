@@ -27,6 +27,7 @@ nav{
 
 .ruta{
     all: unset;
+    box-sizing: border-box;
     display: flex;
     width: 100%;
     align-items: center;
@@ -43,6 +44,10 @@ nav{
 
 .ruta--perfil{
     margin-top: 20px;
+}
+
+.ruta__icono--expl{
+    display: none;
 }
 
 .ruta__fotoPerfil{
@@ -154,6 +159,10 @@ nav{
 
     .ruta--movil{
         display: none;
+    }
+
+    .ruta__icono--expl{
+        display: block;
     }
 }
 

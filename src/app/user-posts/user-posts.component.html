@@ -49,5 +49,5 @@
     </div>
 </div>
 
-<app-post *ngIf="mostrarPost" [post]="postSeleccionado" [perfil]="perfil" (cerrar)="mostrarPost = false"></app-post>
-<app-reel [reel]="reelSeleccionado" [perfil]="perfil" *ngIf="mostrarReel" (cerrar)="mostrarReel = false"></app-reel>
+<app-post *ngIf="mostrarPost" [post]="postSeleccionado" (cerrar)="mostrarPost = false"></app-post>
+<app-reel [reel]="reelSeleccionado" *ngIf="mostrarReel" (cerrar)="mostrarReel = false"></app-reel>

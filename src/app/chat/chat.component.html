@@ -1,0 +1,110 @@
+<div class="container" *ngIf="chat" (touchstart)="mantenerPulsado($event)" (mousedown)="mantenerPulsado($event)" (mouseup)="dejarDeMantener($event)" (touchend)="dejarDeMantener($event)">
+    <nav>
+        <svg (click)="irChats()" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/></svg>
+        <div class="nav__userInfo" (click)="irPerfilMiembro()">
+            <img class="userInfo__foto" [src]="miembro.foto ? miembro.foto : './../../assets/img/noPic.webp'">
+            <div class="userInfo__user">
+                <p class="user__nombre">{{ miembro.nombre }}</p>
+                <p class="user__usuario">{{ miembro.usuario }}</p>
+            </div>
+        </div>
+    </nav>
+    <div class="mensajes">
+        <div [class]="{
+            'mensajeMio': msj.id_usuario != miembro._id,
+            'mensajeMiembro': msj.id_usuario == miembro._id
+        }" *ngFor="let msj of mensajes">
+            <div *ngIf="msj.tipo == 'audio'">
+                <audio [src]="msj.msg" controls></audio>
+            </div>
+            <div *ngIf="msj.tipo == 'text'">
+                <p [class]="{
+            'mensajeMio__texto': msj.id_usuario != miembro._id,
+            'mensajeMiembro__texto': msj.id_usuario == miembro._id
+        }">{{ msj.msg }}</p>
+            </div>
+            <div *ngIf="msj.tipo == 'image'">
+                <img [src]="msj.msg" class="mensaje__foto">
+            </div>
+            <div *ngIf="msj.tipo == 'post'" class="mensaje__post">
+                <div class="post__userInfo" (click)="irPerfil(msj.msg.perfil.usuario)">
+                    <img class="userinfo__pic" [src]="msj.msg.perfil.foto ? msj.msg.perfil.foto : './../../assets/img/noPic.webp'">
+                    <p class="userinfo__usu">{{ msj.msg.perfil.usuario }}</p>
+                </div>
+                <img class="post__foto" [src]="msj.msg.url" (click)="verpost(msj.msg)">
+            </div>
+
+            <div *ngIf="msj.tipo == 'reel'" class="mensaje__reel">
+                <div class="reel__userInfo" (click)="irPerfil(msj.msg.perfil.usuario)">
+                    <img class="userinfo__pic" [src]="msj.msg.perfil.foto ? msj.msg.perfil.foto : './../../assets/img/noPic.webp'">
+                    <p class="userinfo__usu">{{ msj.msg.perfil.usuario }}</p>
+                </div>
+                <img class="reel__portada" [src]="msj.msg.portada" (click)="verReel(msj.msg)">
+            </div>
+        </div>
+    </div>
+    <div class="optionContainer">
+        <p *ngIf="mostrarEscribiendo" class="mensajes__typing">Escribiendo...</p>
+        <div *ngIf="!grabandoAudio">
+            <div class="optionContainer__options">
+                <input id="cameraInput" (change)="mandarFoto($event)" hidden type="file" accept="image/*" capture="environment">
+                <label for="cameraInput" class="options__camera" *ngIf="mensaje.length == 0">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                    preserveAspectRatio="xMidYMid meet">
+
+                    <g transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)"
+                    fill="currentColor" stroke="none">
+                    <path d="M183 565 c-12 -8 -23 -28 -25 -43 -3 -26 -6 -27 -66 -32 -91 -7 -92
+                    -9 -92 -211 0 -153 2 -168 21 -193 l20 -26 279 0 279 0 20 26 c19 25 21 40 21
+                    193 0 202 -1 204 -92 211 -60 5 -63 6 -66 32 -6 48 -34 58 -162 58 -87 0 -121
+                    -4 -137 -15z m217 -158 c100 -67 97 -206 -6 -264 -50 -29 -98 -29 -148 0 -137
+                    77 -83 287 74 287 32 0 58 -7 80 -23z"/>
+                    <path d="M276 365 c-40 -21 -55 -44 -56 -85 0 -45 23 -78 66 -96 29 -12 39
+                    -12 68 0 89 37 89 153 -1 187 -33 12 -43 11 -77 -6z"/>
+                    </g>
+                    </svg>
+                </label>
+
+                <input class="options__text" (input)="escribiendoMensaje()" type="text" placeholder="Envía un mensaje..." [(ngModel)]="mensaje"> 
+
+                <div style="display: flex; align-items: center; gap: 10px;" *ngIf="mensaje.length == 0">
+                    <svg class="options__svg" data-option="audio" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.000000 512.000000"
+                        preserveAspectRatio="xMidYMid meet">
+
+                        <g data-option="audio" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                        fill="#000000" stroke="none">
+                        <path data-option="audio" d="M2393 4946 c-346 -66 -629 -311 -743 -641 -48 -138 -50 -181 -50
+                        -945 0 -585 3 -733 15 -801 84 -481 515 -824 999 -796 353 21 655 225 810 548
+                        25 51 56 130 68 174 23 80 23 81 23 875 0 794 0 795 -23 875 -98 349 -369 616
+                        -713 700 -90 22 -296 28 -386 11z"/>
+                        <path d="M1055 2706 c-42 -18 -83 -69 -91 -113 -4 -19 -4 -81 0 -137 51 -736
+                        605 -1350 1330 -1473 l105 -17 3 -351 3 -352 29 -37 c68 -90 190 -86 260 8 20
+                        26 21 42 24 379 l3 352 122 22 c158 28 283 70 432 144 158 78 286 171 415 299
+                        280 281 444 646 466 1043 8 132 -3 168 -62 213 -31 24 -47 29 -95 29 -43 0
+                        -65 -5 -85 -21 -57 -42 -67 -65 -75 -186 -24 -334 -136 -596 -351 -824 -434
+                        -458 -1118 -534 -1642 -183 -103 69 -247 207 -318 306 -149 206 -230 434 -245
+                        682 -3 58 -11 120 -18 137 -29 72 -138 113 -210 80z"/>
+                        </g>
+                    </svg>
+                </div>
+                <span *ngIf="mensaje.length > 0" class="options__sendMsg" (click)="mandarTexto()">
+                    <svg class="options__svg" fill="currentColor" viewBox="0 0 24 24" ><path d="M22.91 2.388a.69.69 0 0 0-.597-.347l-20.625.002a.687.687 0 0 0-.482 1.178L7.26 9.16a.686.686 0 0 0 .778.128l7.612-3.657a.723.723 0 0 1 .937.248.688.688 0 0 1-.225.932l-7.144 4.52a.69.69 0 0 0-.3.743l2.102 8.692a.687.687 0 0 0 .566.518.655.655 0 0 0 .103.008.686.686 0 0 0 .59-.337L22.903 3.08a.688.688 0 0 0 .007-.692" fill-rule="evenodd"></path></svg>
+                </span>
+            </div>
+        </div>
+        <div class="optionContainer__options grabarAudio" *ngIf="grabandoAudio">
+            <span class="options__borrarAudio" data-option="borrarAudio">
+                <svg class="options__svg" data-option="borrarAudio" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                    <path data-option="borrarAudio" fill="currentColor" d="M 13 3 A 1.0001 1.0001 0 0 0 11.986328 4 L 6 4 A 1.0001 1.0001 0 1 0 6 6 L 24 6 A 1.0001 1.0001 0 1 0 24 4 L 18.013672 4 A 1.0001 1.0001 0 0 0 17 3 L 13 3 z M 6 8 L 6 24 C 6 25.105 6.895 26 8 26 L 22 26 C 23.105 26 24 25.105 24 24 L 24 8 L 6 8 z"></path>
+                </svg>
+            </span>
+            <p style="user-select: none; color: white; font-weight: 600;">Grabando audio...</p>
+            <p style="color: white; user-select: none;">{{ tiempoAudio }}</p>
+        </div>
+    </div>
+</div>
+
+<app-post (cerrar)="mostrarPost = false" [post]="postElegido" *ngIf="mostrarPost"></app-post>
+<app-reel (cerrar)="mostrarReel = false" [reel]="reelElegido" *ngIf="mostrarReel"></app-reel>
+<app-loading-screen [texto]="textoLoader" *ngIf="mostrarLoader"></app-loading-screen>
+<app-msgmodal [duracion]="2000" [texto]="textoModal" (cerrarModal)="errorAlCargar()" *ngIf="mostrarModal"></app-msgmodal>

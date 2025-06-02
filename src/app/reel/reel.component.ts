@@ -12,8 +12,9 @@ import { PostService } from '../service/post.service';
 export class ReelComponent {
 
   @Input() reel!: Post;
-  @Input() perfil!: Perfil;
   @Output() cerrar = new EventEmitter();
+  verComentarios: boolean = false;
+  mostrarCompartir: boolean = false;
 
   constructor(private router: Router, private postService: PostService){}
 
@@ -23,7 +24,7 @@ export class ReelComponent {
 
   irAlPerfil(){
     if(!this.router.url.includes("perfil")){
-      this.router.navigate(['perfil/' + this.perfil.me ? "me" : this.perfil.usuario]);
+      this.router.navigate(['perfil/' + this.reel.perfil.usuario]);
     }
   }
 

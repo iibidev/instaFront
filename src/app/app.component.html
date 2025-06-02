@@ -4,3 +4,28 @@
         <router-outlet></router-outlet>
     </div>
 </main>
+
+
+<div *ngFor="let n of notificaciones.reverse()" class="mensajeNotis__noti" (click)="irChat(n.mensaje.id_chat)">
+<img class="noti__foto" [src]="n.usuario.foto ? n.usuario.foto : './../assets/img/noPic.webp'">
+<div class="noti__msgInfo">
+    <p class="msgInfo__user">{{ n.usuario.usuario }}</p>
+    <div *ngIf="n.mensaje.tipo == 'text'">
+        <p class="msginfo__msg msgCortado">{{ n.mensaje.msg }}</p>
+    </div>
+    <div *ngIf="n.mensaje.tipo == 'audio'">
+        <p class="msginfo__msg">Ha enviado un audio</p>
+    </div>
+    <div *ngIf="n.mensaje.tipo == 'image'">
+        <p class="msginfo__msg">Ha enviado una foto</p>
+    </div>
+    <div *ngIf="n.mensaje.tipo == 'post'">
+        <p class="msginfo__msg">Ha enviado un post de {{ n.mensaje.msg.perfil.usuario }}</p>
+    </div>
+    <div *ngIf="n.mensaje.tipo == 'reel'">
+        <p class="msginfo__msg">Ha enviado un reel de {{ n.mensaje.msg.perfil.usuario }}</p>
+    </div>
+</div>
+</div>
+
+<app-msgmodal [duracion]="2000" [texto]="'Error al enviar'" (cerrarModal)="mostrarError = false" *ngIf="mostrarError"></app-msgmodal>

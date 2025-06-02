@@ -12,10 +12,13 @@ import { SignupComponent } from './signup/signup.component';
 import { loginGuard } from './guard/login.guard';
 import { BuscarComponent } from './buscar/buscar.component';
 import { movilGuard } from './guard/movil.guard';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent, title: "Instagram - Inicio", canActivate: [AuthGuard]},
-  {path: "chats", component: ChatsComponent, title: "Instagram - Chats", canActivate: [AuthGuard]},
+  {path: "chats", component: ChatsComponent, title: "Instagram - Chats", canActivate: [AuthGuard], children: [
+    {path: ":id", component: ChatComponent}
+  ]},
   {path: "explorar", component: ExploreComponent, title: "Instagram - explorar", canActivate: [AuthGuard], children: [
     {path: "buscar", component: BuscarComponent, canActivate: [movilGuard]}
   ]},

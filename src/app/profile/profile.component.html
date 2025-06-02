@@ -13,7 +13,6 @@
     <div class="userInfo">
         <div style="position: relative;">
             <img class="userInfo__pic" [src]="perfil.foto ? perfil.foto : './../../assets/img/noPic.webp'">
-            <button *ngIf="perfil.me" class="userInfo__createStorieBtn">+</button>
         </div>
         <div class="userInfo__info">
             <p class="info__name">{{ perfil.nombre }}</p>
@@ -36,13 +35,10 @@
     <p class="descripcion" [innerHTML]="descripcionFinal"></p>
     <div class="userOptions">
         <button *ngIf="perfil.me" class="userOptions__btn userOptions__btn--large" (click)="mostrarEditar = true">Editar</button>
-        <button *ngIf="perfil.me" class="userOptions__btn userOptions__btn--large">Compartir</button>
+        <button *ngIf="perfil.me" class="userOptions__btn userOptions__btn--large" (click)="mostrarQR = true">Compartir</button>
         <button *ngIf="!perfil.me && !siguiendo" (click)="seguir()" class="userOptions__btn userOptions__btn--large userOptions__btn--color">Seguir</button>
         <button *ngIf="!perfil.me && siguiendo" (click)="seguir()" class="userOptions__btn userOptions__btn--large">Siguiendo</button>
-        <button *ngIf="!perfil.me" class="userOptions__btn userOptions__btn--large">Mensaje</button>
-        <!-- <button class="userOptions__btn">
-            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><polygon points="32 14 28 14 28 10 26 10 26 14 22 14 22 16 26 16 26 20 28 20 28 16 32 16 32 14"/><path d="M12,4A5,5,0,1,1,7,9a5,5,0,0,1,5-5m0-2a7,7,0,1,0,7,7A7,7,0,0,0,12,2Z" transform="translate(0 0)"/><path d="M22,30H20V25a5,5,0,0,0-5-5H9a5,5,0,0,0-5,5v5H2V25a7,7,0,0,1,7-7h6a7,7,0,0,1,7,7Z" transform="translate(0 0)"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>
-        </button> -->
+        <button *ngIf="!perfil.me" class="userOptions__btn userOptions__btn--large" (click)="crearChat()">Mensaje</button>
     </div>
 
     <div class="links">
@@ -69,8 +65,26 @@
     </div>
     <app-edit-profile *ngIf="mostrarEditar" [perfil]="perfil" (cerrarEditar)="mostrarEditar = false"></app-edit-profile>
     
-    <app-user-posts *ngIf="mostrarPosts" [posts]="perfil.posts" [perfil]="perfil"></app-user-posts>
-    <app-user-reels *ngIf="!mostrarPosts" [reels]="perfil.posts" [perfil]="perfil"></app-user-reels>
+    <app-user-posts *ngIf="mostrarPosts" [posts]="perfil.posts"></app-user-posts>
+    <app-user-reels *ngIf="!mostrarPosts" [reels]="perfil.posts"></app-user-reels>
+    <div class="compartirPerfil" *ngIf="mostrarQR">
+        <span (click)="mostrarQR = false" class="compartirPerfil__salir">
+            <svg fill="currentColor" height="28" width="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 460.775 460.775" xml:space="preserve">
+            <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+                c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+                c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+                c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+                l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+                c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
+            </svg>
+        </span>
+        <p style="font-weight: 700; color: white; font-size: 24px;">Comparte tu perfil</p>
+        <p style="color: white; font-size: 18px; text-align: center; padding-inline: 20px;">Con el QR todos los que lo escaneen accederán a tu perfil al momento</p>
+        <div style="background-color: white; padding: 20px; border-radius: 10px;">
+            <img [src]="codigoQR">
+        </div>
+    </div>
 </div>
 
 <div class="avisoLogOut" *ngIf="mostrarAvisoLogOut">
@@ -83,4 +97,6 @@
         </div>
     </div>
 </div>
-  
+
+<app-loading-screen [texto]="'Cargando chat...'" *ngIf="loader"></app-loading-screen>
+<app-msgmodal *ngIf="modal" [duracion]="2000" [texto]="'Error al cargar el chat'" (cerrarModal)="modal = false"></app-msgmodal>

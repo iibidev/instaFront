@@ -1,0 +1,163 @@
+.container{
+    position: relative;
+    width: 100vw;
+    max-width: 500px;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    scrollbar-width: none;
+    padding-bottom: 100px;
+
+    @media(width < 500px){
+        border-left: 0px;
+        border-right: 0px;
+    }
+}
+
+nav{
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--background);
+    @media(width < 600px){
+        display: flex;
+    }
+}
+
+.posts{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+}
+
+.posts__post{
+    width: 100%;
+}
+
+.post__foto{
+    width: 100%;
+    height: fit-content;
+}
+
+.foto__profile{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+}
+
+.profile__foto{
+    height: 40px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile__user{
+    font-weight: 700;
+}
+
+.foto__img{
+    width: 100%;
+    object-fit: contain;
+    background-color: black;
+}
+
+.post__reel{
+    width: 100%;
+    position: relative;
+}
+
+.reel__profile{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.reel__video {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+}
+
+.post__options{
+    width: 100%;
+    display: flex;
+    padding: 15px;
+    gap: 20px;
+}
+
+.options__option{
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    gap: 5px;
+    cursor: pointer;
+}
+
+.likeheart{
+    animation: pop .4s ease-in forwards;
+    color: var(--rojo);
+}
+
+.post__desc{
+    padding-inline: 15px;
+}
+
+.post__fecha{
+    font-size: 14px;
+    padding-inline: 15px;
+    margin-top: 5px;
+    color: var(--gray-text);
+}
+
+.panelComentarios{
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    z-index: 999;
+    @media(width < 500px){
+        border-left: 0px;
+        border-right: 0px;
+    }
+}
+
+@keyframes pop{
+    0%{
+        scale: 0.4;
+    }
+
+    50%{
+        scale: 1.2;
+    }
+
+    100%{
+        scale: 1;
+    }
+}

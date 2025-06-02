@@ -51,6 +51,7 @@
     gap: 8px;
     padding: 10px;
     border-bottom: 1px solid var(--border);
+    cursor: pointer;
 }
 
 .profile__foto{
@@ -72,6 +73,26 @@
     scrollbar-width: none;
 }
 
+.comments__comment{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.comment__profile{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.comment__date{
+    font-size: 13px;
+    margin-top: 5px;
+    color: var(--gray-text);
+}
+
 .post__options{
     width: 100%;
     display: flex;
@@ -86,6 +107,10 @@
     color: var(--text);
     gap: 5px;
     cursor: pointer;
+}
+
+.options__option--comMovil{
+    display: none;
 }
 
 .likeheart{
@@ -119,19 +144,99 @@
     cursor: pointer;
 }
 
-@media (width < 1000px){
-    .post{
-        height: 55dvh;
-    }
+.panelComentarios{
+    display: none;
+}
+
+.closeBtnNav{
+    display: none;
 }
 
 @media (width < 1000px){
     .post{
         height: 55dvh;
     }
+}
+
+@media (width < 800px){
+
+    .post{
+        position: relative;
+        flex-direction: column;
+        height: 100dvh;
+        width: 100%;
+        max-width: 500px;
+        overflow-y: hidden;
+    }
 
     .post__nav{
         display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+        background-color: var(--background);
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+    }
+
+    .closeBtnNav{
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .post__foto{
+        width: 100%;
+        aspect-ratio: 1/1;
+    }
+
+    .data__profile{
+        display: none;
+    }
+
+    .data__comments{
+        order: 3;
+    }
+
+    .comments__comment{
+        display: none;
+    }
+
+    .post__data{
+        width: 100%;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 100%;
+    }
+
+    .post__options{
+        order: 1;
+    }
+
+    .data__fecha{
+        order: 2;
+    }
+
+    .options__option--com{
+        display: none;
+    }
+
+    .options__option--comMovil{
+        display: flex;
+    }
+
+    .data__commentInput{
+        display: none;
+    }
+
+    .panelComentarios{
+        display: block;
+    }
+
+    .closeBtn{
+        display: none;
     }
 }
 

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { RutasService } from '../service/rutas.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser';
 import { Perfil } from '../models/perfil.model';
 import { FollowService } from '../service/follow.service';
-import { Post } from '../models/post.model';
+import { ChatService } from '../service/chat.service';
+import { Chat } from '../models/chat.model';
+import { SocketService } from '../service/socket.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,10 +22,18 @@ export class ProfileComponent {
   mostrarEditar: boolean = false;
   descripcionFinal!: SafeHtml;
   mostrarPosts: boolean = true;
+  chat!: Chat;
+  loader: boolean = false;
+  modal: boolean = false;
+
+  codigoQR = "";
+  mostrarQR: boolean = false;
 
   constructor(private mostrarHeader: RutasService, private route: ActivatedRoute,
     private userService: UserService, private tituloPagina: Title,
-    private followService: FollowService, private sanitizer: DomSanitizer
+    private followService: FollowService, private sanitizer: DomSanitizer,
+    private chatService: ChatService, private router: Router,
+    private socketService: SocketService
   ){}
 
   ngOnInit(): void {
@@ -45,6 +55,7 @@ export class ProfileComponent {
               );
               this.siguiendo = this.perfil.sigues;
               this.tituloPagina.setTitle(`Instagram - ${this.perfil.usuario}`);
+              this.codigoQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + window.location.href;
             }else{
               alert(data.error);
             }
@@ -65,6 +76,7 @@ export class ProfileComponent {
                 })
               );
               this.tituloPagina.setTitle(`Instagram - ${this.perfil.usuario}`);
+              this.codigoQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + window.location.href;
             }
           },
           error: error =>{
@@ -94,5 +106,32 @@ export class ProfileComponent {
 
   cerrarSesion(){
     this.userService.cerrarSesion();
+    this.chatService.borrarChats();
+    this.socketService.salirSala();
+  }
+
+  crearChat(){
+    this.loader = true;
+    this.chatService.crearChat(this.perfil._id).subscribe({
+      next: data =>{
+        if(data.ok){
+          this.loader = false;
+          this.chat = data.chat;
+          if(data.nuevo){
+            this.chatService.anadirChat(this.chat);
+            this.socketService.crearChat(this.chat, this.chat.miembros[1]._id);
+          }
+          this.router.navigate(["chats/" + this.chat._id]);
+        }else{
+          this.loader = false
+          this.modal = true;
+        }
+      },
+      error: error =>{
+        console.log(error);
+        this.loader = false
+        this.modal = true;
+      }
+    });
   }
 }

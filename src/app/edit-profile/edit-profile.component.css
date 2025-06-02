@@ -51,6 +51,7 @@
 .editarFoto__foto{
     width: 90px;
     aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .fotoLoader{

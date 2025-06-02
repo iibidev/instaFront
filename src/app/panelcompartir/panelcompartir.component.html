@@ -1,0 +1,11 @@
+<div class="fondoNegro" (click)="cerrar()"></div>
+<div class="panel">
+    <h2 style="text-align: center;">Compartir</h2>
+    <div class="panel__chats">
+        <div *ngFor="let chat of chatsArray" class="chats__chat" #chatDiv (click)="elegirChat(chat, chatDiv)">
+            <img class="chat__foto" [src]="chat.miembros[1].foto ? chat.miembros[1].foto : './../../assets/img/noPic.webp'">
+            <p class="chat__nombre">{{ chat.miembros[1].nombre }}</p>
+        </div>
+    </div>
+    <button *ngIf="chatElegido" class="panel__enviar" (click)="mandar()">Enviar</button>
+</div>

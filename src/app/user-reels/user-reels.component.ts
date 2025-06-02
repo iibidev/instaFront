@@ -10,9 +10,7 @@ import { Perfil } from '../models/perfil.model';
 export class UserReelsComponent implements OnInit{
 
   @Input() reels!: Array<Post>;
-  @Input() perfil!: Perfil;
   reelSeleccionado!: Post;
-
   mostrarReel: boolean = false;
 
   ngOnInit(): void {

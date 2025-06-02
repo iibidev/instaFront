@@ -1,0 +1,26 @@
+<div class="fondo" (click)="cerrarComentarios(panel)"></div>
+<div class="panel" #panel>
+    <div class="panel__nav" (touchstart)="cerrarPanel($event, panel)">
+        <div style="height: 4px; width: 60px; background-color: rgba(13, 13, 13, 0.562); border-radius: 9999px;"></div>
+        <p style="font-weight: bold;">Comentarios</p>
+    </div>
+    <div class="comments">
+        <div *ngIf="comentarios.length == 0" style="width: 100%; display: flex; flex-direction: column; gap: 15px; align-items: center;">
+            <p style="font-weight: 800;">Todavía no hay comentarios</p>
+            <p style="font-size: 13px;">Inicia la conversación.</p>
+        </div>
+        <div *ngFor="let comentario of comentarios" class="comments__comment">
+            <div class="comment__profile" (click)="irAlPerfil(comentario.usuario)">
+                <img class="profile__foto" [src]="comentario.fotoPerfil ? comentario.fotoPerfil : './../../assets/img/noPic.webp'">
+                <p class="profile__user">{{ comentario.usuario }}</p>
+            </div>
+            <p class="comment__text">{{ comentario.texto }}</p>
+            <p class="comment__date">{{ formatearFecha(comentario.fecha) }}</p>
+        </div>
+    </div>
+    <div class="commentInput">
+        <input [(ngModel)]="comentario" class="commentInput__input" type="text" placeholder="Añade un comentario..." [(ngModel)]="comentario">
+        <span (click)="comentar()" class="commentInput__addBtn" *ngIf="comentario.length > 0 && !publicando">Publicar</span>
+        <span class="commentInput__addBtn" *ngIf="publicando">publicando...</span>
+    </div>
+</div>

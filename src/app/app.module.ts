@@ -11,7 +11,6 @@ import { ExploreComponent } from './explore/explore.component';
 import { ReelsComponent } from './reels/reels.component';
 import { UploadPageComponent } from './upload-page/upload-page.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { CameraComponent } from './camera/camera.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +26,9 @@ import { UserPostsComponent } from './user-posts/user-posts.component';
 import { UserReelsComponent } from './user-reels/user-reels.component';
 import { ReelComponent } from './reel/reel.component';
 import { PostComponent } from './post/post.component';
-
+import { ComentariosComponent } from './comentarios/comentarios.component';
+import { ChatComponent } from './chat/chat.component';
+import { PanelcompartirComponent } from './panelcompartir/panelcompartir.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import { PostComponent } from './post/post.component';
     ReelsComponent,
     UploadPageComponent,
     NavBarComponent,
-    CameraComponent,
     LoginComponent,
     SignupComponent,
     LoadingScreenComponent,
@@ -50,7 +50,10 @@ import { PostComponent } from './post/post.component';
     UserPostsComponent,
     UserReelsComponent,
     ReelComponent,
-    PostComponent
+    PostComponent,
+    ComentariosComponent,
+    ChatComponent,
+    PanelcompartirComponent
   ],
   imports: [
     BrowserModule,
