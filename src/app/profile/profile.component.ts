@@ -55,7 +55,8 @@ export class ProfileComponent {
               );
               this.siguiendo = this.perfil.sigues;
               this.tituloPagina.setTitle(`Instagram - ${this.perfil.usuario}`);
-              this.codigoQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + window.location.href;
+              const url = window.location.href.split("/me")[0];
+              this.codigoQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + url + "/" + this.perfil.usuario;
             }else{
               alert(data.error);
             }
@@ -76,7 +77,8 @@ export class ProfileComponent {
                 })
               );
               this.tituloPagina.setTitle(`Instagram - ${this.perfil.usuario}`);
-              this.codigoQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + window.location.href;
+              const url = window.location.href.split("/me")[0];
+              this.codigoQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + url + "/" + this.perfil.usuario;
             }
           },
           error: error =>{
