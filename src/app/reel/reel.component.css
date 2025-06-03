@@ -88,7 +88,7 @@
 
 @media(width < 480px){
     .reel-container__all{
-        height: 100dvh;
+        height: 80dvh;
     }
 
     .reel-video{

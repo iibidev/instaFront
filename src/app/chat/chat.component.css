@@ -86,6 +86,7 @@ nav{
     width: 24px;
     height: 24px;
     cursor: pointer;
+    user-select: none;
 }
 
 .options__sendMsg{
@@ -110,6 +111,7 @@ nav{
     border-radius: 50%;
     color: white;
     transition: ease .3s;
+    user-select: none;
 }
 
 .options__borrarAudio:hover {

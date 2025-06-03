@@ -10,7 +10,7 @@ import { Chat } from '../models/chat.model';
 export class SocketService {
 
   private socket: Socket;
-  url: string = "https://instabackend-production-781c.up.railway.app";
+  url: string = "http://localhost:3000";
   timeoutEscribiendo: any;
 
   constructor() {
