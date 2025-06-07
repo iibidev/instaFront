@@ -1,0 +1,189 @@
+.container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #405de6, #5851db);
+    animation: slideUp ease-out .3s forwards;
+}
+
+.slideDown{
+    animation: slideDown ease-out .3s forwards;
+}
+
+button{
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.panelDibujo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.panelDibujo__lienzo{
+    display: flex;
+    gap: 10px;
+    touch-action: none; /* Previene scroll/pinch */
+}
+
+.panelDibujo__canvas{
+    background-color: white;
+    touch-action: none;
+}
+
+.tools{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 45px;
+    gap: 8px;
+}
+
+.tools__btn{
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: white;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tools__option--elegido{
+    background-color: var(--azul);
+}
+
+#draw{
+    background-image: url("./../../assets/img/lapiz.png");
+}
+#erase{
+    background-image: url("./../../assets/img/borrador.png");
+}
+#deshacer{
+    background-image: url("./../../assets/img/flecha-izquierda.png");
+}
+#rehacer{
+    background-image: url("./../../assets/img/flecha-izquierda.png");
+    transform: scaleX(-1); /*Para darle la vuelta*/
+}
+
+.panelDibujo__sendBtn{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px;
+    border-radius: 9999px;
+    background-color: white;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.sendBtn__foto{
+    width: 35px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.slider-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(180deg);
+}
+
+
+input[type=range][orient="vertical"] {
+  writing-mode: vertical-rl;
+  width: fit-content;
+  height: 200px;
+  padding: 0 5px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  transition: 0.2s;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.closeBtn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+@media(width < 550px){
+    .panelDibujo__lienzo{
+        flex-direction: column;
+    }
+
+    .tools{
+        flex-direction: row;
+        height: 45px;
+        width: 100%;
+    }
+
+    .tools__btn{
+        width: auto;
+        height: 100%;
+    }
+
+    .slider-container {
+        height: auto;
+        width: 100%;
+        transform: rotate(360deg);
+    }
+
+    input[type=range][orient="vertical"] {
+        writing-mode: initial;
+        width: 100%;
+        height: fit-content;
+        padding: 5px 0;
+    }
+
+}
+
+@keyframes slideUp{
+    from{
+        top: 100%;
+    }
+    
+    to{
+        top: 0;
+    }
+}
+
+@keyframes slideDown{
+    from{
+        top: 0;
+    }
+    
+    to{
+        top: 100%;
+    }
+}

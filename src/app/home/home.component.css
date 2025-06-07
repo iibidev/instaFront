@@ -33,6 +33,26 @@ nav{
     }
 }
 
+.homeVacio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding-inline: 20px;
+    gap: 15px;
+}
+
+.homeVacio__title{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.homeVacio__text{
+    text-align: center;
+}
+
 .posts{
     display: flex;
     flex-direction: column;

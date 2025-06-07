@@ -8,7 +8,7 @@ import { Post } from '../models/post.model';
 })
 export class PostService {
 
-  url: String = "https://instabackend-production-781c.up.railway.app/post/";
+  url: String = "http://localhost:3000/post/";
 
   exploreSubject = new BehaviorSubject<Array<Post>>([]);
   homeSubject = new BehaviorSubject<Array<Post>>([]);

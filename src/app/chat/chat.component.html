@@ -1,4 +1,4 @@
-<div class="container" *ngIf="chat" (touchstart)="mantenerPulsado($event)" (mousedown)="mantenerPulsado($event)" (mouseup)="dejarDeMantener($event)" (touchend)="dejarDeMantener($event)">
+<div class="container" *ngIf="chat">
     <nav>
         <svg (click)="irChats()" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z"/></svg>
         <div class="nav__userInfo" (click)="irPerfilMiembro()">
@@ -23,8 +23,14 @@
             'mensajeMiembro__texto': msj.id_usuario == miembro._id
         }">{{ msj.msg }}</p>
             </div>
-            <div *ngIf="msj.tipo == 'image'">
+            <div *ngIf="msj.tipo == 'image'" (click)="verFoto(msj.msg)">
                 <img [src]="msj.msg" class="mensaje__foto">
+            </div>
+            <div *ngIf="msj.tipo == 'paint'" (click)="verFoto(msj.msg)">
+                <img [src]="msj.msg" [class]="{
+            'mensajeMio__paint': msj.id_usuario != miembro._id,
+            'mensajeMiembro__paint': msj.id_usuario == miembro._id
+        }">
             </div>
             <div *ngIf="msj.tipo == 'post'" class="mensaje__post">
                 <div class="post__userInfo" (click)="irPerfil(msj.msg.perfil.usuario)">
@@ -68,12 +74,12 @@
                 <input class="options__text" (input)="escribiendoMensaje()" type="text" placeholder="Envía un mensaje..." [(ngModel)]="mensaje"> 
 
                 <div style="display: flex; align-items: center; gap: 10px;" *ngIf="mensaje.length == 0">
-                    <svg class="options__svg" data-option="audio" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.000000 512.000000"
-                        preserveAspectRatio="xMidYMid meet">
+                    <svg class="options__svg" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.000000 512.000000"
+                        preserveAspectRatio="xMidYMid meet" (click)="iniciarGrabacion()">
 
-                        <g data-option="audio" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                         fill="#000000" stroke="none">
-                        <path data-option="audio" d="M2393 4946 c-346 -66 -629 -311 -743 -641 -48 -138 -50 -181 -50
+                        <path d="M2393 4946 c-346 -66 -629 -311 -743 -641 -48 -138 -50 -181 -50
                         -945 0 -585 3 -733 15 -801 84 -481 515 -824 999 -796 353 21 655 225 810 548
                         25 51 56 130 68 174 23 80 23 81 23 875 0 794 0 795 -23 875 -98 349 -369 616
                         -713 700 -90 22 -296 28 -386 11z"/>
@@ -86,6 +92,26 @@
                         682 -3 58 -11 120 -18 137 -29 72 -138 113 -210 80z"/>
                         </g>
                     </svg>
+                    <svg (click)="mostrarDibujo = true" version="1.0" xmlns="http://www.w3.org/2000/svg" class="options__svg"
+                    viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                        fill="#000000" stroke="none">
+                        <path d="M4940 5101 c-121 -34 -287 -114 -480 -229 -880 -528 -1835 -1394
+                        -2476 -2247 -97 -129 -234 -329 -234 -342 0 -4 37 -18 83 -31 45 -12 132 -47
+                        192 -76 244 -120 422 -298 541 -545 26 -53 48 -98 50 -100 5 -5 151 116 294
+                        245 160 143 530 519 684 694 326 372 677 847 948 1284 267 431 489 885 553
+                        1131 33 127 33 178 0 210 -29 30 -64 31 -155 6z"/>
+                        <path d="M1576 1973 c-50 -109 -99 -242 -111 -300 -6 -32 -6 -32 52 -49 198
+                        -56 417 -216 520 -379 15 -25 34 -45 40 -45 18 0 227 108 296 153 31 21 57 45
+                        57 53 0 30 -63 166 -113 242 -100 155 -263 293 -425 362 -66 28 -217 70 -252
+                        70 -10 0 -33 -38 -64 -107z"/>
+                        <path d="M1103 1436 c-241 -55 -447 -240 -528 -474 -14 -38 -31 -125 -40 -199
+                        -28 -241 -128 -470 -274 -626 -57 -62 -90 -85 -160 -114 l-56 -23 675 3 675 3
+                        77 26 c205 69 376 223 455 413 123 293 39 637 -204 837 -68 56 -172 113 -257
+                        140 -81 26 -277 33 -363 14z"/>
+                        </g>
+                    </svg>
                 </div>
                 <span *ngIf="mensaje.length > 0" class="options__sendMsg" (click)="mandarTexto()">
                     <svg class="options__svg" fill="currentColor" viewBox="0 0 24 24" ><path d="M22.91 2.388a.69.69 0 0 0-.597-.347l-20.625.002a.687.687 0 0 0-.482 1.178L7.26 9.16a.686.686 0 0 0 .778.128l7.612-3.657a.723.723 0 0 1 .937.248.688.688 0 0 1-.225.932l-7.144 4.52a.69.69 0 0 0-.3.743l2.102 8.692a.687.687 0 0 0 .566.518.655.655 0 0 0 .103.008.686.686 0 0 0 .59-.337L22.903 3.08a.688.688 0 0 0 .007-.692" fill-rule="evenodd"></path></svg>
@@ -93,17 +119,19 @@
             </div>
         </div>
         <div class="optionContainer__options grabarAudio" *ngIf="grabandoAudio">
-            <span class="options__borrarAudio" data-option="borrarAudio">
-                <svg class="options__svg" data-option="borrarAudio" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-                    <path data-option="borrarAudio" fill="currentColor" d="M 13 3 A 1.0001 1.0001 0 0 0 11.986328 4 L 6 4 A 1.0001 1.0001 0 1 0 6 6 L 24 6 A 1.0001 1.0001 0 1 0 24 4 L 18.013672 4 A 1.0001 1.0001 0 0 0 17 3 L 13 3 z M 6 8 L 6 24 C 6 25.105 6.895 26 8 26 L 22 26 C 23.105 26 24 25.105 24 24 L 24 8 L 6 8 z"></path>
+            <span class="options__borrarAudio" (click)="borrarAudio = true; detenerGrabacion()">
+                <svg class="options__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                    <path fill="currentColor" d="M 13 3 A 1.0001 1.0001 0 0 0 11.986328 4 L 6 4 A 1.0001 1.0001 0 1 0 6 6 L 24 6 A 1.0001 1.0001 0 1 0 24 4 L 18.013672 4 A 1.0001 1.0001 0 0 0 17 3 L 13 3 z M 6 8 L 6 24 C 6 25.105 6.895 26 8 26 L 22 26 C 23.105 26 24 25.105 24 24 L 24 8 L 6 8 z"></path>
                 </svg>
             </span>
-            <p style="user-select: none; color: white; font-weight: 600;">Grabando audio...</p>
             <p style="color: white; user-select: none;">{{ tiempoAudio }}</p>
+            <div (click)="detenerGrabacion()" class="options__pararAudio"></div>
         </div>
     </div>
 </div>
 
+<app-verfotochat *ngIf="verFotoChat" [foto]="fotoElegida" (cerrar)="verFotoChat = false"></app-verfotochat>
+<app-dibujo (cerrar)="mostrarDibujo = false" *ngIf="mostrarDibujo" [chat]="chat"></app-dibujo>
 <app-post (cerrar)="mostrarPost = false" [post]="postElegido" *ngIf="mostrarPost"></app-post>
 <app-reel (cerrar)="mostrarReel = false" [reel]="reelElegido" *ngIf="mostrarReel"></app-reel>
 <app-loading-screen [texto]="textoLoader" *ngIf="mostrarLoader"></app-loading-screen>

@@ -29,6 +29,9 @@ export class ChatComponent implements OnInit{
   borrarAudio: boolean = false;
   intervalId: any;
   mostrarEscribiendo: boolean = false;
+  mostrarDibujo: boolean = false;
+  verFotoChat: boolean = false;
+  fotoElegida!: string;
   
   mostrarPost: boolean = false;
   mostrarReel: boolean = false;
@@ -131,40 +134,33 @@ export class ChatComponent implements OnInit{
     }
   }
 
-  mantenerPulsado(evt: MouseEvent | TouchEvent){
-    const el = evt.target as HTMLElement;
-    if(el.getAttribute("data-option") == "audio"){
-      this.iniciarGrabacion();
-    }
-  }
-
   iniciarGrabacion() {
     if (this.grabandoAudio) return;
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-    this.mediaRecorder = new MediaRecorder(stream);
     this.iniciarContador();
-    this.mediaRecorder.start();
-    this.grabandoAudio = true;
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      this.mediaRecorder = new MediaRecorder(stream);
+      this.mediaRecorder.start();
+      this.grabandoAudio = true;
 
-    this.mediaRecorder.ondataavailable = e => {
-      this.audioChunks.push(e.data);
-    };
+      this.mediaRecorder.ondataavailable = e => {
+        this.audioChunks.push(e.data);
+      };
 
-    this.mediaRecorder.onstop = () => {
-      if(!this.borrarAudio){
-        const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
-        this.audio = blob;
-        this.mandarAudio();
-      }
-      this.borrarAudio = false;
-      this.audioChunks = [];
-    };
+      this.mediaRecorder.onstop = () => {
+        if(!this.borrarAudio){
+          const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+          this.audio = blob;
+          this.mandarAudio();
+        }
+        this.borrarAudio = false;
+        this.audioChunks = [];
+      };
 
-    setTimeout(() => {
-      if (this.grabandoAudio) {
-        this.detenerGrabacion();
-      }
-    }, 30000);
+      setTimeout(() => {
+        if (this.grabandoAudio) {
+          this.detenerGrabacion();
+        }
+      }, 30000);
 
     }).catch(err => {
       console.error('Error accediendo al micrófono:', err);
@@ -178,17 +174,6 @@ export class ChatComponent implements OnInit{
       this.mediaRecorder.stream.getTracks().forEach(track => track.stop());
       this.grabandoAudio = false;
     }
-  }
-
-  dejarDeMantener(evt: MouseEvent | TouchEvent){
-    const el = evt.target as HTMLElement;
-
-    if(el.getAttribute("data-option") == "borrarAudio"){
-      this.borrarAudio = true;
-    }else{
-      this.borrarAudio = false;
-    }
-    this.detenerGrabacion();
   }
 
   mandarAudio(){
@@ -269,6 +254,11 @@ export class ChatComponent implements OnInit{
       this.intervalId = null;
       this.tiempoAudio = "00:00";
     }
+  }
+
+  verFoto(foto: string){
+    this.fotoElegida = foto;
+    this.verFotoChat = true;
   }
 
   formatearDuracion(segundos: number): string {
