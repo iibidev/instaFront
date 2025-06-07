@@ -9,7 +9,7 @@ import { SocketService } from './socket.service';
 })
 export class ChatService {
 
-  url: string = "https://instabackend-production-781c.up.railway.app/chat";
+  url: string = "http://localhost:3000/chat";
 
   chatsSubject = new BehaviorSubject<Array<Chat>>([]);
   chats$ = this.chatsSubject.asObservable();

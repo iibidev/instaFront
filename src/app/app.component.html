@@ -25,6 +25,9 @@
     <div *ngIf="n.mensaje.tipo == 'reel'">
         <p class="msginfo__msg">Ha enviado un reel de {{ n.mensaje.msg.perfil.usuario }}</p>
     </div>
+    <div *ngIf="n.mensaje.tipo == 'paint'">
+        <p class="msginfo__msg">Ha enviado un dibujo</p>
+    </div>
 </div>
 </div>
 

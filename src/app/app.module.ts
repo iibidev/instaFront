@@ -29,6 +29,8 @@ import { PostComponent } from './post/post.component';
 import { ComentariosComponent } from './comentarios/comentarios.component';
 import { ChatComponent } from './chat/chat.component';
 import { PanelcompartirComponent } from './panelcompartir/panelcompartir.component';
+import { DibujoComponent } from './dibujo/dibujo.component';
+import { VerfotochatComponent } from './verfotochat/verfotochat.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { PanelcompartirComponent } from './panelcompartir/panelcompartir.compone
     PostComponent,
     ComentariosComponent,
     ChatComponent,
-    PanelcompartirComponent
+    PanelcompartirComponent,
+    DibujoComponent,
+    VerfotochatComponent
   ],
   imports: [
     BrowserModule,

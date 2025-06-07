@@ -1,0 +1,43 @@
+.fondoNegro{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.712);
+    animation: appear ease .3s forwards;
+}
+
+.foto{
+    width: 90%;
+    max-width: 400px;
+    max-height: 100dvh;
+    object-fit: contain;
+    background-color: white;
+}
+
+.options{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    gap: 20px;
+}
+
+.options__option{
+    cursor: pointer;
+}
+
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-  url: string = "https://instabackend-production-781c.up.railway.app";
+  url: string = "http://localhost:3000";
   private perfilSubject = new BehaviorSubject<any>(null);
   private lastSearchesSubject = new BehaviorSubject<Array<any>>([]);
 

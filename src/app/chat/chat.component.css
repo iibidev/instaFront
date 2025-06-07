@@ -118,6 +118,14 @@ nav{
     background-color: var(--rojo);
 }
 
+.options__pararAudio{
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+}
+
 .mensajes{
     display: flex;
     flex-direction: column;
@@ -166,6 +174,19 @@ nav{
     max-width: 300px;
     object-fit: contain;
     border-radius: 10px;
+}
+
+.mensajeMio__paint, .mensajeMiembro__paint{
+    max-width: 300px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border: 5px solid;
+    border-image: linear-gradient(45deg, #405de6, #5851db) 1;
+    box-shadow: 0 8px 20px rgba(0,0,0, .2);
+}
+
+.mensajeMiembro__paint{
+    border-image: linear-gradient(45deg, #975534, #a86443) 1;
 }
 
 .mensajes__typing{
@@ -233,6 +254,12 @@ nav{
     height: 100%;
     object-fit: cover;
     cursor: pointer;
+}
+
+@media(width < 550px){
+    .mensajeMio__paint, .mensajeMiembro__paint, .mensaje__foto{
+        max-width: 230px;
+    }
 }
 
 @keyframes appear{

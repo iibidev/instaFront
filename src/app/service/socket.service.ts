@@ -10,7 +10,7 @@ import { Chat } from '../models/chat.model';
 export class SocketService {
 
   private socket: Socket;
-  url: string = "https://instabackend-production-781c.up.railway.app";
+  url: string = "http://localhost:3000";
   timeoutEscribiendo: any;
 
   constructor() {
@@ -38,6 +38,10 @@ export class SocketService {
 
   sendReel(reel: Post, idChat: String, idMiembro: String): void {
     this.socket.emit('newReel', { reel, idChat, idMiembro });
+  }
+
+  sendPaint(paint: String, idChat: String, idMiembro: String): void {
+    this.socket.emit('newPaint', { paint, idChat, idMiembro });
   }
 
   notificacionMensaje(): Observable<any>{
@@ -77,6 +81,8 @@ export class SocketService {
       this.socket.on("escribiendo", (id) => {
         if (idChat == id) {
           observer.next(true);
+        }else{
+          observer.next(false);
         }
       });
     })
