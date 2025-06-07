@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FollowService {
 
-  url: string = "http://localhost:3000/follow";
+  url: string = "https://instabackend-production-781c.up.railway.app/follow";
   constructor(private http: HttpClient) { }
 
   seguirUsuario(id_usuario: String): Observable<any>{
