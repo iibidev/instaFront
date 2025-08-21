@@ -97,8 +97,10 @@ export class ChatComponent implements OnInit{
     });
 
     this.socketService.mensajeEntrante().subscribe(data =>{
-      this.mensajes.push(data);
-      this.scrollAutomatico(1);
+      if(data.id_chat == this.chat._id){
+        this.mensajes.push(data);
+        this.scrollAutomatico(1);
+      }
     });
 
     this.socketService.errorMessage().subscribe(data =>{
