@@ -1,3 +1,3 @@
 export const env = {
-    BACKURL: "https://insta-backend-eight-chi.vercel.app"
+    BACKURL: "https://instabackend-hcj6.onrender.com"
 }
