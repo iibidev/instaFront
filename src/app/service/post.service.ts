@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Post } from '../models/post.model';
+import { env } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  url: String = "https://instabackend-production-781c.up.railway.app/post/";
+  url: String = env.BACKURL + "/post/";
 
   exploreSubject = new BehaviorSubject<Array<Post>>([]);
   homeSubject = new BehaviorSubject<Array<Post>>([]);

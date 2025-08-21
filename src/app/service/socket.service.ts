@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { Post } from '../models/post.model';
 import { Chat } from '../models/chat.model';
+import { env } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Chat } from '../models/chat.model';
 export class SocketService {
 
   private socket: Socket;
-  url: string = "https://instabackend-production-781c.up.railway.app";
+  url: string = env.BACKURL;
   timeoutEscribiendo: any;
 
   constructor() {

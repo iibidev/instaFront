@@ -2,19 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Chat } from '../models/chat.model';
-import { SocketService } from './socket.service';
+import { env } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  url: string = "https://instabackend-production-781c.up.railway.app/chat";
+  url: string = env.BACKURL + "/chat";
 
   chatsSubject = new BehaviorSubject<Array<Chat>>([]);
   chats$ = this.chatsSubject.asObservable();
 
-  constructor(private http: HttpClient, private socketService: SocketService) { 
+  constructor(private http: HttpClient) { 
     this.cargarChats();
   }
 

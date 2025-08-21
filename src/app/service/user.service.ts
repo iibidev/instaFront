@@ -3,13 +3,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import{ HttpClient } from '@angular/common/http';
 import { Perfil } from '../models/perfil.model';
 import { Router } from '@angular/router';
+import { env } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  url: string = "https://instabackend-production-781c.up.railway.app";
+  url: string = env.BACKURL;
   private perfilSubject = new BehaviorSubject<any>(null);
   private lastSearchesSubject = new BehaviorSubject<Array<any>>([]);
 
